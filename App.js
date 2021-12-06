@@ -18,10 +18,10 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-    //Todas as telas foram inicialmente colocadas no tab navigation para facilitar o desenvolvimento de cada integrante, uma vez que ainda não temos a passagem de uma tela para outra através de outros componentes que não a tab navigation
+    {/* //Todas as telas foram inicialmente colocadas no tab navigation para facilitar o desenvolvimento de cada integrante, uma vez que ainda não temos a passagem de uma tela para outra através de outros componentes que não a tab navigation
       //Telas pertencentes à tab navigation: Inicio / Meus Anuncios / Perfil
       //Tela Cadastro do Anuncio virá de btn dentro de Meus Anuncios
-      //Tela Detalhe do Anuncio virá ao clicar em um dos anuncios disponíveis na tela de Inicio
+      //Tela Detalhe do Anuncio virá ao clicar em um dos anuncios disponíveis na tela de Inicio */}
       <NavigationContainer>
         <Tab.Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false }}>
           <Tab.Screen name="Inicio" component={TelaInicio} options={{ title: 'Início' }} />
