@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Switch } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as Yup from "yup";
 
 import {
@@ -9,86 +10,147 @@ import {
 	SubmitButton,
 } from "../components/forms";
 
+import * as options from "../components/resource/campos";
+
 const validationSchema = Yup.object().shape({
-	title: Yup.string().required().min(5).label("Title"),
-	price: Yup.number().required().min(1).max(10000).label("Price"),
-	description: Yup.string().label("Description"),
-	category: Yup.object().required().nullable().label("Category"),
+	tituloDoAnuncio: Yup.string().required().min(5).label("Título do Anúncio"),
+	descricao: Yup.string().label("Descrição"),
+
+	titulo: Yup.string().required().label("Título do Livro"),
+	isbn: Yup.number().min(1000000000).max(9999999999999).label("ISBN"),
+	autor: Yup.string().required().label("Autores"),
+	editora: Yup.string().required().label("Editora"),
+	anoLivro: Yup.object().required().nullable().label("Ano do Livro"),
+
+	idDisciplina: Yup.object().required().nullable().label("Disciplina"),
+	anoEscolar: Yup.object().required().nullable().label("Ano Escolar"),
+
+	valor: Yup.number().label("Valor"),
+	estadoLivro: Yup.object().required().nullable().label("Estado do Livro"),
 });
 
-const categories = [
-	{ label: "Furniture", value: 1 },
-	{ label: "Cloathing", value: 2 },
-	{ label: "Cameras", value: 3 },
-];
-
 export function TelaCadastroDoAnuncio({ navigation }) {
+	const [doacao, setDoacao] = useState(false);
+
 	return (
-		<View style={styles.container}>
-			{/* Header */}
+		<SafeAreaView style={styles.container}>
+			<ScrollView>
+				{/* Header */}
 
-			<Text>HEADER</Text>
+				<Text>HEADER</Text>
 
-			<AppForm
-				initialValues={{
-					title: "",
-					price: "",
-					description: "",
-					category: null,
-				}}
-				onSubmit={(values) => console.log(values)}
-				validationSchema={validationSchema}
-			>
-				<AppFormField maxLength={255} name="title" placeholder="Title" />
+				<AppForm
+					initialValues={{
+						tituloDoAnuncio: "",
+						descricao: "",
 
-				<AppFormField
-					keyboardType="numeric"
-					maxLength={8}
-					name="Price"
-					placeholder="Price"
-				/>
+						titulo: "",
+						isbn: "",
+						autor: "",
+						editora: "",
+						anoLivro: null,
 
-				<AppFormPicker
-					items={categories}
-					name="category"
-					placeholder="Category"
-				/>
+						idDisciplina: null,
+						anoEscolar: null,
 
-				<AppFormField
-					maxLength={255}
-					multiline
-					name="description"
-					numberOfLines={3}
-					placeholder="Description"
-				/>
+						disponivelParaDoacao: false,
+						valor: "",
+						estadoLivro: null,
+					}}
+					onSubmit={(values) => console.log(values)}
+					validationSchema={validationSchema}
+				>
+					{/* dadosAnuncio */}
+					<View>
+						<AppFormField
+							// icon="email"
+							maxLength={255}
+							name="tituloDoAnuncio"
+							placeholder="Título do Anúncio"
+						/>
 
-				<SubmitButton title="Post" />
-			</AppForm>
+						<AppFormField
+							maxLength={255}
+							multiline
+							name="descricao"
+							numberOfLines={3}
+							placeholder="Descrição"
+						/>
+					</View>
 
-			{/* 
-            <AppTextInput placeholder="Username" icon="email"/>
+					{/* dadosLivro */}
+					<View>
+						<AppFormField
+							maxLength={255}
+							name="titulo"
+							placeholder="Título do Livro"
+						/>
+						<AppFormField
+							keyboardType="numeric"
+							maxLength={13}
+							name="isbn"
+							placeholder="ISBN"
+						/>
+						<AppFormField maxLength={255} name="autor" placeholder="Autores" />
+						<AppFormField
+							maxLength={255}
+							name="editora"
+							placeholder="Editora"
+						/>
+						<AppFormPicker
+							items={options.anoLivro}
+							name="anoLivro"
+							placeholder="Ano do Livro"
+						/>
+					</View>
 
-            <Switch value={isNew} onValueChange={newValue => setIsNew(newValue)} />
+					{/* dadosAluno */}
+					<View>
+						<AppFormPicker
+							items={options.disciplinas}
+							name="idDisciplina"
+							placeholder="Disciplina"
+						/>
+						<AppFormPicker
+							items={options.anoEscolar}
+							name="anoEscolar"
+							placeholder="Ano escolar"
+						/>
+					</View>
 
-            <AppPicker
-                selectedItem={category}
-                onSelectItem={item => setCategory(item)}
-                items={categories}
-                icon="apps"
-                placeholder="Anything" /> */}
+					{/* dadosVenda */}
+					<View>
+						<Switch
+							value={doacao}
+							onValueChange={(newValue) => setDoacao(newValue)}
+						/>
+						<AppFormField
+							keyboardType="numeric"
+							maxLength={6}
+							name="valor"
+							placeholder="Valor de venda"
+						/>
+						<AppFormPicker
+							items={options.estadoLivro}
+							name="estadoLivro"
+							placeholder="Estado do Livro"
+						/>
+					</View>
 
-			{/* <TextInput 
-                onChangeText={text => setFirstName(text)}
-                placeholder="First Name"
-                style={{
-                    borderBottomColor: "#ccc",
-                    borderBottomWidth: 1,
-                }} /> */}
-		</View>
+					<View style={styles.btnSubmit}>
+						<SubmitButton title="Post" />
+					</View>
+				</AppForm>
+			</ScrollView>
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
+	btnSubmit: {
+		paddingVertical: 10,
+		margin: 30,
+	},
 	container: {
 		padding: 10,
 	},
