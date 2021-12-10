@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, ScrollView, Switch } from "react-native";
+import {
+	Text,
+	View,
+	StyleSheet,
+	ScrollView,
+	ImageBackground,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import * as Yup from "yup";
+import { Switch } from "react-native-paper";
 
 import {
 	AppForm,
@@ -9,15 +17,17 @@ import {
 	AppFormPicker,
 	SubmitButton,
 } from "../components/forms";
-
+import defaultStyles from "../config/styles";
 import * as options from "../components/resource/campos";
+import AppText from "../components/AppText";
+import AppFormSwitch from "../components/forms/AppFormSwitch";
 
 const validationSchema = Yup.object().shape({
 	tituloDoAnuncio: Yup.string().required().min(5).label("Título do Anúncio"),
 	descricao: Yup.string().label("Descrição"),
 
 	titulo: Yup.string().required().label("Título do Livro"),
-	isbn: Yup.number().min(1000000000).max(9999999999999).label("ISBN"),
+	isbn: Yup.string().matches("^[0-9]{10}|[0-9]{13}$").label("ISBN"),
 	autor: Yup.string().required().label("Autores"),
 	editora: Yup.string().required().label("Editora"),
 	anoLivro: Yup.object().required().nullable().label("Ano do Livro"),
@@ -25,20 +35,23 @@ const validationSchema = Yup.object().shape({
 	idDisciplina: Yup.object().required().nullable().label("Disciplina"),
 	anoEscolar: Yup.object().required().nullable().label("Ano Escolar"),
 
-	valor: Yup.number().label("Valor"),
+	disponivelParaDoacao: Yup.boolean(),
+	valor: Yup.string().matches("^[0-9]{0,6}(,[0-9]{1,2})?$").label("Valor"),
 	estadoLivro: Yup.object().required().nullable().label("Estado do Livro"),
 });
 
 export function TelaCadastroDoAnuncio({ navigation }) {
-	const [doacao, setDoacao] = useState(false);
+	const [doacao, setDoacao] = React.useState(false);
+
+	const onToggleSwitch = () => {
+		setDoacao(!doacao);
+		console.log(doacao);
+	};
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<ScrollView>
 				{/* Header */}
-
-				<Text>HEADER</Text>
-
 				<AppForm
 					initialValues={{
 						tituloDoAnuncio: "",
@@ -63,44 +76,59 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 					{/* dadosAnuncio */}
 					<View>
 						<AppFormField
-							// icon="email"
+							icon="bullhorn-outline"
+							label="Título do Anúncio"
 							maxLength={255}
 							name="tituloDoAnuncio"
-							placeholder="Título do Anúncio"
+							placeholder=""
 						/>
 
 						<AppFormField
+							label="Descrição"
 							maxLength={255}
 							multiline
 							name="descricao"
 							numberOfLines={3}
-							placeholder="Descrição"
+							placeholder=""
 						/>
 					</View>
 
 					{/* dadosLivro */}
 					<View>
 						<AppFormField
+							icon="book"
+							label="Título do Livro"
 							maxLength={255}
 							name="titulo"
-							placeholder="Título do Livro"
+							placeholder=""
 						/>
 						<AppFormField
+							icon="numeric"
+							label="ISBN"
 							keyboardType="numeric"
 							maxLength={13}
 							name="isbn"
-							placeholder="ISBN"
+							placeholder="10 a 13 dígitos"
 						/>
-						<AppFormField maxLength={255} name="autor" placeholder="Autores" />
 						<AppFormField
+							icon="account"
+							label="Autores"
+							maxLength={255}
+							name="autor"
+							placeholder=""
+						/>
+						<AppFormField
+							icon="domain"
+							label="Editora"
 							maxLength={255}
 							name="editora"
-							placeholder="Editora"
+							placeholder=""
 						/>
 						<AppFormPicker
+							label="Ano do Livro"
 							items={options.anoLivro}
 							name="anoLivro"
-							placeholder="Ano do Livro"
+							placeholder="Selecione..."
 						/>
 					</View>
 
@@ -108,32 +136,37 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 					<View>
 						<AppFormPicker
 							items={options.disciplinas}
+							label="Disciplina"
 							name="idDisciplina"
-							placeholder="Disciplina"
+							placeholder="Selecione..."
 						/>
 						<AppFormPicker
 							items={options.anoEscolar}
+							label="Ano Escolar"
 							name="anoEscolar"
-							placeholder="Ano escolar"
+							placeholder="Selecione..."
 						/>
 					</View>
 
 					{/* dadosVenda */}
 					<View>
-						<Switch
-							value={doacao}
-							onValueChange={(newValue) => setDoacao(newValue)}
+						<AppFormSwitch
+							label="Disponível para Doação"
+							name="disponivelParaDoacao"
 						/>
 						<AppFormField
+							icon="currency-brl"
 							keyboardType="numeric"
+							label="Valor da Venda"
 							maxLength={6}
 							name="valor"
-							placeholder="Valor de venda"
+							placeholder="0,00"
 						/>
 						<AppFormPicker
 							items={options.estadoLivro}
+							label="Estado do Livro"
 							name="estadoLivro"
-							placeholder="Estado do Livro"
+							placeholder="Selecione..."
 						/>
 					</View>
 
@@ -153,5 +186,6 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		padding: 10,
+		backgroundColor: defaultStyles.colors.background,
 	},
 });
