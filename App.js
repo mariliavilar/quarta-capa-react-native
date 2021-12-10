@@ -26,7 +26,14 @@ export default function App() {
         <Tab.Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false }}>
           <Tab.Screen name="Inicio" component={TelaInicio} options={{ title: 'Início' }} />
           <Tab.Screen name="DetalheDoAnuncio" component={TelaDetalheDoAnuncio} options={{ title: 'Detalhe do Anúncio' }} />
+<<<<<<< HEAD
           <Tab.Screen name="MeusAnuncios" component={TelaMeusAnuncios} options={{ title: 'Meus Anúncios' }} />
+=======
+          <Tab.Screen name="MeusAnuncios" component={TelaMeusAnuncios} options={{
+            title: 'Meus Anúncios', tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="bullhorn" color={color} size={size} />),
+          }} />
+>>>>>>> b403684 (Tela início recebendo os anúncios do backend.)
           <Tab.Screen name="CadastroDoAnuncio" component={TelaCadastroDoAnuncio} options={{ title: 'Cadastrar' }} />
           <Tab.Screen name="Perfil" component={TelaPerfil} options={{ title: 'Perfil' }} />
         </Tab.Navigator>
