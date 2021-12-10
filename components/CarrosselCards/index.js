@@ -1,35 +1,34 @@
 import React from 'react'
 import { View, Text, StyleSheet } from "react-native"
 import Carousel from 'react-native-snap-carousel'
-import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from '../../CarouselCardItem'
-import CarouselDestaque, { SLIDER_WIDTH_DESTAQUE, ITEM_WIDTH_DESTAQUE } from '../../CarrosselDestaque'
-import { carregaItens } from "../../Api";
-import { useQuery } from 'react-query';
+import CarrosselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from '../../CarrosselCardItem'
+import CarrosselDestaque, { SLIDER_WIDTH_DESTAQUE, ITEM_WIDTH_DESTAQUE } from '../../CarrosselDestaque'
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const CarouselCards = ({ urlApi }) => {
+const CarrosselCards = ({ urlApi }) => {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log('teste')
-    getData()
+    if (!data.length) {
+      getAnuncios()
+    }
   });
 
-  const getData = async () => {
+  const getAnuncios = async () => {
     try {
       const resp = await axios.get(urlApi);
-      console.log(resp.data);
+      setData(resp.data)
     } catch (err) {
       console.error(err);
     }
   }
 
-
   return (
     <View>
-      {/* <Carousel
+      <Carousel
         data={data}
-        renderItem={CarouselDestaque}
+        renderItem={CarrosselDestaque}
         sliderWidth={SLIDER_WIDTH_DESTAQUE}
         itemWidth={ITEM_WIDTH_DESTAQUE}
         useScrollView={true}
@@ -37,7 +36,7 @@ const CarouselCards = ({ urlApi }) => {
       <Text style={styles.title}>Próximos a você</Text>
       <Carousel
         data={data}
-        renderItem={CarouselCardItem}
+        renderItem={CarrosselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         useScrollView={true}
@@ -45,7 +44,7 @@ const CarouselCards = ({ urlApi }) => {
       <Text style={styles.title}>Doações</Text>
       <Carousel
         data={data}
-        renderItem={CarouselCardItem}
+        renderItem={CarrosselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         useScrollView={true}
@@ -53,7 +52,7 @@ const CarouselCards = ({ urlApi }) => {
       <Text style={styles.title}>Últimos adicionados</Text>
       <Carousel
         data={data}
-        renderItem={CarouselCardItem}
+        renderItem={CarrosselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         useScrollView={true}
@@ -61,11 +60,11 @@ const CarouselCards = ({ urlApi }) => {
       <Text style={styles.title}>Em alta</Text>
       <Carousel
         data={data}
-        renderItem={CarouselCardItem}
+        renderItem={CarrosselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         useScrollView={true}
-      /> */}
+      />
     </View>
 
   )
@@ -81,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CarouselCards
+export default CarrosselCards

@@ -32,7 +32,7 @@ export default function App() {
           <Tab.Screen name="DetalheDoAnuncio" component={TelaDetalheDoAnuncio} options={{ title: 'Detalhe do Anúncio' }} />
           <Tab.Screen name="MeusAnuncios" component={TelaMeusAnuncios} options={{
             title: 'Meus Anúncios', tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="book-multiple" color={color} size={size} />),
+              <MaterialCommunityIcons name="bullhorn" color={color} size={size} />),
           }} />
           <Tab.Screen name="CadastroDoAnuncio" component={TelaCadastroDoAnuncio} options={{ title: 'Cadastrar' }} />
           <Tab.Screen name="Perfil" component={TelaPerfil} options={{

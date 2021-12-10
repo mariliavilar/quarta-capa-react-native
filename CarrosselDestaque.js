@@ -8,7 +8,7 @@ const CarrosselDestaque = ({ item, index }) => {
     return (
         <View style={styles.container} key={index}>
             <Image
-                source={{ uri: item.imgUrl }}
+                source={{ uri: item.fotoLivro }}
                 style={styles.image}
             />
         </View>
