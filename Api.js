@@ -1,2 +1,5 @@
-export const carregaItens = (urlApi) => () =>
-fetch(urlApi).then((res) => res.json());
+export const carregaItens = async (urlApi) =>
+    await fetch(urlApi)
+        .then((res) => res.json())
+        .catch((e) => console.log(e));
+
