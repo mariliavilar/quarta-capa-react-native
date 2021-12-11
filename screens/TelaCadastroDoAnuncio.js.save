@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+OOOOOOBOBOBOOOOOimport React, { useState } from "react";
 import {
 	Text,
 	View,
 	StyleSheet,
 	ScrollView,
-	ImageBackground,
+	ImageBaOBOBOOOOAOAOOqckground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
