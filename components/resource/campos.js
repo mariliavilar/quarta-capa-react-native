@@ -1,38 +1,48 @@
+// id > id
+// nome > nome
+
 export const anoLivro = [
-	{ label: "2021", value: 2021 },
-	{ label: "2020", value: 2020 },
-	{ label: "2019", value: 2019 },
-	{ label: "2018", value: 2018 },
-	{ label: "2017", value: 2017 },
-	{ label: "2016", value: 2016 },
-	{ label: "2015", value: 2015 },
-	{ label: "2014", value: 2014 },
-	{ label: "2013", value: 2013 },
-	{ label: "2012", value: 2012 },
-	{ label: "2011", value: 2011 },
-	{ label: "2010", value: 2010 },
+	{ nome: "2021", id: 2021 },
+	{ nome: "2020", id: 2020 },
+	{ nome: "2019", id: 2019 },
+	{ nome: "2018", id: 2018 },
+	{ nome: "2017", id: 2017 },
+	{ nome: "2016", id: 2016 },
+	{ nome: "2015", id: 2015 },
+	{ nome: "2014", id: 2014 },
+	{ nome: "2013", id: 2013 },
+	{ nome: "2012", id: 2012 },
+	{ nome: "2011", id: 2011 },
+	{ nome: "2010", id: 2010 },
 ];
 
 export const anoEscolar = [
-	{ value: "NAO_SE_APLICA", label: "Não se aplica" },
-	{ value: "PRIMEIRO_ANO_FUNDAMENTAL", label: "1º ano do Fundamental" },
-	{ value: "SEGUNDO_ANO_FUNDAMENTAL", label: "2º ano do Fundamental" },
-	{ value: "TERCEIRO_ANO_FUNDAMENTAL", label: "3º ano do Fundamental" },
-	{ value: "QUARTO_ANO_FUNDAMENTAL", label: "4º ano do Fundamental" },
-	{ value: "QUINTO_ANO_FUNDAMENTAL", label: "5º ano do Fundamental" },
-	{ value: "SEXTO_ANO_FUNDAMENTAL", label: "6º ano do Fundamental" },
-	{ value: "SETIMO_ANO_FUNDAMENTAL", label: "7º ano do Fundamental" },
-	{ value: "OITAVO_ANO_FUNDAMENTAL", label: "8º ano do Fundamental" },
-	{ value: "NONO_ANO_FUNDAMMENTAL", label: "9º ano do Fundamental" },
-	{ value: "PRIMEIRO_ANO_MEDIO", label: "1º no ensino Médio" },
-	{ value: "SEGUNDO_ANO_MEDIO", label: "2º no ensino Médio" },
-	{ value: "TERCEIRO_ANO_MEDIO", label: "3º no ensino Médio" },
+	{ id: "NAO_SE_APLICA", nome: "Não se aplica" },
+	{ id: "PRIMEIRO_ANO_FUNDAMENTAL", nome: "1º ano do Fundamental" },
+	{ id: "SEGUNDO_ANO_FUNDAMENTAL", nome: "2º ano do Fundamental" },
+	{ id: "TERCEIRO_ANO_FUNDAMENTAL", nome: "3º ano do Fundamental" },
+	{ id: "QUARTO_ANO_FUNDAMENTAL", nome: "4º ano do Fundamental" },
+	{ id: "QUINTO_ANO_FUNDAMENTAL", nome: "5º ano do Fundamental" },
+	{ id: "SEXTO_ANO_FUNDAMENTAL", nome: "6º ano do Fundamental" },
+	{ id: "SETIMO_ANO_FUNDAMENTAL", nome: "7º ano do Fundamental" },
+	{ id: "OITAVO_ANO_FUNDAMENTAL", nome: "8º ano do Fundamental" },
+	{ id: "NONO_ANO_FUNDAMMENTAL", nome: "9º ano do Fundamental" },
+	{ id: "PRIMEIRO_ANO_MEDIO", nome: "1º no ensino Médio" },
+	{ id: "SEGUNDO_ANO_MEDIO", nome: "2º no ensino Médio" },
+	{ id: "TERCEIRO_ANO_MEDIO", nome: "3º no ensino Médio" },
 ];
 
 export const estadoLivro = [
-	{ value: "NOVO", label: "Novo" },
-	{ value: "USADO_EM_OTIMAS_CONDICOES", label: "Usado em ótimas condições" },
-	{ value: "USADO", label: "Usado" },
+	{ id: "NOVO", nome: "Novo" },
+	{ id: "USADO_EM_OTIMAS_CONDICOES", nome: "Usado em ótimas condições" },
+	{ id: "USADO", nome: "Usado" },
 ];
 
-export const disciplinas = [{ label: "Pendente implementar fetch", value: 0 }];
+export const disponivelParaDoacao = [
+	{ id: false, nome: "Não, quero vender!" },
+	{ id: true, nome: "Sim, vou ajudar um estudante!" },
+];
+
+export const instituicao = [{ id: "Todas", nome: "Todas" }];
+
+export const disciplinas = [{ nome: "Pendente implementar fetch", id: 0 }];

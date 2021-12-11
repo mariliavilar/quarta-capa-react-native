@@ -37,7 +37,7 @@ function AppPicker({
 					)}
 
 					{selectedItem ? (
-						<AppText style={styles.text}>{selectedItem.label}</AppText>
+						<AppText style={styles.text}>{selectedItem.nome}</AppText>
 					) : (
 						<AppText style={styles.placeholder}>{placeholder}</AppText>
 					)}
@@ -53,10 +53,10 @@ function AppPicker({
 				<Button title="Close" onPress={() => setModalVisible(false)} />
 				<FlatList
 					data={items}
-					keyExtractor={(item) => item.value.toString()}
+					keyExtractor={(item) => item.id.toString()}
 					renderItem={({ item }) => (
 						<PickerItem
-							label={item.label}
+							label={item.nome}
 							onPress={() => {
 								setModalVisible(false);
 								onSelectItem(item);
@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: defaultStyles.colors.light,
 		borderRadius: 25,
+		borderColor: defaultStyles.colors.primary,
+		borderWidth: 3,
 		flexDirection: "row",
 		width: "100%",
 		padding: 15,

@@ -27,7 +27,7 @@ function AppFormPicker({ items, label, name, placeholder }) {
 
 const styles = StyleSheet.create({
 	label: {
-		color: defaultStyles.colors.light,
+		color: defaultStyles.colors.secundary,
 	},
 });
 
