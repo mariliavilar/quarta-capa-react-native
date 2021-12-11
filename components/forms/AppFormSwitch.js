@@ -13,8 +13,11 @@ function AppFormSwitch({ label, name, ...otherProps }) {
 	const [doacao, setDoacao] = React.useState(false);
 
 	const onToggleSwitch = () => {
-		setDoacao(!doacao);
+		console.log("parametro ", doacao);
+		setDoacao(doacao ? false : true);
+		console.log("setDoacao ", doacao);
 		setFieldValue(name, doacao);
+		console.log("setFieldValue ", doacao);
 		console.log(doacao);
 	};
 

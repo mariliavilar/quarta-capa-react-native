@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import {
-	Text,
-	View,
-	StyleSheet,
-	ScrollView,
-	ImageBackground,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import * as Yup from "yup";
-import { Switch } from "react-native-paper";
+import axios from "axios";
+import { Title } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import {
 	AppForm,
@@ -17,10 +13,9 @@ import {
 	AppFormPicker,
 	SubmitButton,
 } from "../components/forms";
+import DividerForm from "../components/DividerForm";
 import defaultStyles from "../config/styles";
 import * as options from "../components/resource/campos";
-import AppText from "../components/AppText";
-import AppFormSwitch from "../components/forms/AppFormSwitch";
 
 const validationSchema = Yup.object().shape({
 	tituloDoAnuncio: Yup.string().required().min(5).label("Título do Anúncio"),
@@ -35,17 +30,54 @@ const validationSchema = Yup.object().shape({
 	idDisciplina: Yup.object().required().nullable().label("Disciplina"),
 	anoEscolar: Yup.object().required().nullable().label("Ano Escolar"),
 
-	disponivelParaDoacao: Yup.boolean(),
+	disponivelParaDoacao: Yup.object()
+		.nullable()
+		.required()
+		.label("Disponível para doação"),
 	valor: Yup.string().matches("^[0-9]{0,6}(,[0-9]{1,2})?$").label("Valor"),
 	estadoLivro: Yup.object().required().nullable().label("Estado do Livro"),
 });
 
 export function TelaCadastroDoAnuncio({ navigation }) {
-	const [doacao, setDoacao] = React.useState(false);
+	const [disciplinas, setDisciplinas] = useState([]);
 
-	const onToggleSwitch = () => {
-		setDoacao(!doacao);
-		console.log(doacao);
+	useEffect(() => {
+		console.log("useEffect");
+		getDisciplinas();
+	}, [null]);
+
+	const getDisciplinas = async () => {
+		console.log("entrei aqui em getDisciplinas");
+		try {
+			let response = await axios.get(
+				"https://quartacapa.herokuapp.com/api/v1/disciplinas"
+			);
+			setDisciplinas(response.data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const tranformJson = (values) => {
+		let valuesTransformed = {
+			isbn: values.isbn,
+			titulo: values.titulo,
+			autor: values.autor,
+			editora: values.editora,
+			ano: values.anoLivro.id,
+			valor: values.valor,
+			descricaoEstado: values.estadoLivro.id,
+			disponivelParaDoacao: values.disponivelParaDoacao.id,
+			idDisciplina: values.idDisciplina.id,
+			anoEscolar: values.anoEscolar.id,
+			tituloDoAnuncio: values.tituloDoAnuncio,
+			descricao: values.descricao,
+			fotoLivro: "null",
+			idUsuario: "578e5a05-b50c-449a-817d-6f46fc21ffd1",
+			anuncioStatus: "DISPONIVEL",
+		};
+
+		console.log(valuesTransformed);
 	};
 
 	return (
@@ -65,16 +97,21 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 
 						idDisciplina: null,
 						anoEscolar: null,
+						instituicao: null,
 
-						disponivelParaDoacao: false,
-						valor: "",
+						disponivelParaDoacao: null,
+						valor: 0,
 						estadoLivro: null,
 					}}
-					onSubmit={(values) => console.log(values)}
+					onSubmit={(values) => {
+						console.log(values);
+						tranformJson(values);
+					}}
 					validationSchema={validationSchema}
 				>
 					{/* dadosAnuncio */}
-					<View>
+					<DividerForm icon="numeric-1-circle" title="Dados do seu anúncio" />
+					<View style={styles.boxForm}>
 						<AppFormField
 							icon="bullhorn-outline"
 							label="Título do Anúncio"
@@ -94,7 +131,8 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 					</View>
 
 					{/* dadosLivro */}
-					<View>
+					<DividerForm icon="numeric-2-circle" title="Dados do Livro" />
+					<View style={styles.boxForm}>
 						<AppFormField
 							icon="book"
 							label="Título do Livro"
@@ -133,9 +171,10 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 					</View>
 
 					{/* dadosAluno */}
-					<View>
+					<DividerForm icon="numeric-3-circle" title="Dados do Aluno" />
+					<View style={styles.boxForm}>
 						<AppFormPicker
-							items={options.disciplinas}
+							items={disciplinas}
 							label="Disciplina"
 							name="idDisciplina"
 							placeholder="Selecione..."
@@ -146,14 +185,27 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 							name="anoEscolar"
 							placeholder="Selecione..."
 						/>
+						<AppFormPicker
+							items={options.instituicao}
+							label="Instituição"
+							name="instituicao"
+							placeholder="Selecione..."
+						/>
 					</View>
 
 					{/* dadosVenda */}
-					<View>
-						<AppFormSwitch
+					<DividerForm icon="numeric-4-circle" title="Dados da Venda" />
+					<View style={styles.boxForm}>
+						<AppFormPicker
+							items={options.disponivelParaDoacao}
 							label="Disponível para Doação"
 							name="disponivelParaDoacao"
+							placeholder="Selecione..."
 						/>
+						{/* <AppFormSwitch
+							label="Disponível para Doação"
+							name="disponivelParaDoacao"
+						/> */}
 						<AppFormField
 							icon="currency-brl"
 							keyboardType="numeric"
@@ -171,7 +223,7 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 					</View>
 
 					<View style={styles.btnSubmit}>
-						<SubmitButton title="Post" />
+						<SubmitButton title="Enviar" />
 					</View>
 				</AppForm>
 			</ScrollView>
@@ -187,5 +239,9 @@ const styles = StyleSheet.create({
 	container: {
 		padding: 10,
 		backgroundColor: defaultStyles.colors.background,
+	},
+	boxForm: {
+		marginTop: 25,
+		marginBottom: 35,
 	},
 });
