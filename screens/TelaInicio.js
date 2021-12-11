@@ -14,3 +14,12 @@ export function TelaInicio({ navigation }) {
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    scrollView: {
+        backgroundColor: '#e8f1f2',
+    },
+    container: {
+        flex: 1
+    }
+});
