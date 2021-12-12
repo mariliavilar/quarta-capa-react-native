@@ -34,7 +34,7 @@ const validationSchema = Yup.object().shape({
 		.nullable()
 		.required()
 		.label("Disponível para doação"),
-	valor: Yup.string().matches("^[0-9]{0,6}(,[0-9]{1,2})?$").label("Valor"),
+	valor: Yup.string().matches("^[0-9]{0,6}(.[0-9]{1,2})?$").label("Valor"),
 	estadoLivro: Yup.object().required().nullable().label("Estado do Livro"),
 });
 
@@ -71,14 +71,49 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 		}
 	};
 
+	function postAnuncioFetch(data) {
+		console.log(data);
+		return fetch("https://quartacapa.herokuapp.com/api/v1/anuncios", {
+			method: "POST",
+			body: JSON.stringify(data),
+			headers: { "Content-Type": "application/json" },
+		})
+			.then((res) => res.json())
+			.then((apiResponse) => {
+				console.log("api response", apiResponse);
+			})
+			.catch(function (error) {
+				return console.log(error);
+			});
+	}
+
 	const tranformJson = (values) => {
+		let hennan = {
+			isbn: "8508193424",
+			titulo: "Teláris - Matemática - 8º ano",
+			autor: "Fernando Viana e Luiz Roberto Dante",
+			editora: "Ática Didáticos",
+			ano: 2019,
+			valor: 169.99,
+			descricaoEstado: "seminovo",
+			disponivelParaDoacao: false,
+			idDisciplina: "7ba63a34-07bd-4f02-9061-dfdc495fd9f3",
+			anoEscolar: "PRIMEIRO_ANO_FUNDAMENTAL",
+			destaque: true,
+			tituloDoAnuncio: "Vendo livro seminovo de Matemática 8o ano",
+			descricao: "blablablablabalala",
+			fotoLivro: "imagine uma foto bem bonita",
+			anuncioStatus: "INDISPONIVEL",
+			idUsuario: "537d007b-d8e4-4fbb-875e-e28433ee07cd",
+		};
+
 		let valuesTransformed = {
 			isbn: values.isbn,
 			titulo: values.titulo,
 			autor: values.autor,
 			editora: values.editora,
 			ano: values.anoLivro.id,
-			valor: values.valor,
+			valor: parseFloat(values.valor),
 			descricaoEstado: values.estadoLivro.id,
 			disponivelParaDoacao: values.disponivelParaDoacao.id,
 			idDisciplina: values.idDisciplina.id,
@@ -88,7 +123,7 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 			descricao: values.descricao,
 			fotoLivro: "null",
 			anuncioStatus: "INDISPONIVEL",
-			idUsuario: "537d007b-d8e4-4fbb-875e-e28433ee07cd",
+			idUsuario: "0593d811-10fc-4a4e-97a4-67a6647000e2",
 		};
 
 		return valuesTransformed;
@@ -119,7 +154,7 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 					}}
 					onSubmit={(values) => {
 						let product = tranformJson(values);
-						postAnuncio(product);
+						postAnuncioFetch(product);
 					}}
 					validationSchema={validationSchema}
 				>
@@ -226,7 +261,7 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 							label="Valor da Venda"
 							maxLength={6}
 							name="valor"
-							placeholder="0,00"
+							placeholder="0.00"
 						/>
 						<AppFormPicker
 							items={options.estadoLivro}
