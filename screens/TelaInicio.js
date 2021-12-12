@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StatusBar, ScrollView, StyleSheet } from 'react-native';
 import CarrosselCards from '../components/CarrosselCards';
 
+import defaultStyles from "../config/styles";
+
 
 export function TelaInicio({ navigation }) {
     return (
@@ -17,7 +19,7 @@ export function TelaInicio({ navigation }) {
 
 const styles = StyleSheet.create({
     scrollView: {
-        backgroundColor: '#e8f1f2',
+        backgroundColor: defaultStyles.colors.mariliaGreenLight,
     },
     container: {
         flex: 1
