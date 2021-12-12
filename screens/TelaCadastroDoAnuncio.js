@@ -42,12 +42,11 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 	const [disciplinas, setDisciplinas] = useState([]);
 
 	useEffect(() => {
-		console.log("useEffect");
+		console.log("Getting disciplinas from back-end");
 		getDisciplinas();
 	}, [null]);
 
 	const getDisciplinas = async () => {
-		console.log("entrei aqui em getDisciplinas");
 		try {
 			let response = await axios.get(
 				"https://quartacapa.herokuapp.com/api/v1/disciplinas"
@@ -55,6 +54,20 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 			setDisciplinas(response.data);
 		} catch (error) {
 			console.error(error);
+		}
+	};
+
+	const postAnuncio = async (product) => {
+		console.log("# Executing POST");
+		console.log(product);
+		try {
+			axios
+				.post(`https://quartacapa.herokuapp.com/api/v1/anuncios`, product)
+				.then((res) => {
+					console.log(res);
+				});
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -70,14 +83,15 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 			disponivelParaDoacao: values.disponivelParaDoacao.id,
 			idDisciplina: values.idDisciplina.id,
 			anoEscolar: values.anoEscolar.id,
+			destaque: values.destaque.id,
 			tituloDoAnuncio: values.tituloDoAnuncio,
 			descricao: values.descricao,
 			fotoLivro: "null",
-			idUsuario: "578e5a05-b50c-449a-817d-6f46fc21ffd1",
-			anuncioStatus: "DISPONIVEL",
+			anuncioStatus: "INDISPONIVEL",
+			idUsuario: "537d007b-d8e4-4fbb-875e-e28433ee07cd",
 		};
 
-		console.log(valuesTransformed);
+		return valuesTransformed;
 	};
 
 	return (
@@ -97,15 +111,15 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 
 						idDisciplina: null,
 						anoEscolar: null,
-						instituicao: null,
+						destaque: null,
 
 						disponivelParaDoacao: null,
 						valor: 0,
 						estadoLivro: null,
 					}}
 					onSubmit={(values) => {
-						console.log(values);
-						tranformJson(values);
+						let product = tranformJson(values);
+						postAnuncio(product);
 					}}
 					validationSchema={validationSchema}
 				>
@@ -186,9 +200,9 @@ export function TelaCadastroDoAnuncio({ navigation }) {
 							placeholder="Selecione..."
 						/>
 						<AppFormPicker
-							items={options.instituicao}
-							label="Instituição"
-							name="instituicao"
+							items={options.destque}
+							label="Destaque seu anúncio"
+							name="destaque"
 							placeholder="Selecione..."
 						/>
 					</View>
