@@ -186,6 +186,6 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		padding: 10,
-		backgroundColor: defaultStyles.colors.background,
+		backgroundColor: defaultStyles.colors.mariliaGreenLight,
 	},
 });
