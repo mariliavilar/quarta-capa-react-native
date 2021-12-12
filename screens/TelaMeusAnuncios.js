@@ -1,12 +1,8 @@
-import React from 'react';
-import { Text, View, StatusBar } from 'react-native';
+import React from "react";
+import AnunciosCard from "../components/AnuncioCard";
 
-
-export function TelaMeusAnuncios({ navigation }) {
-    return (
-        <View>
-            <Text>MEUS ANUNCIOS</Text>
-            <StatusBar style="auto" />
-        </View>
-    )
+export function TelaMeusAnuncios() {
+	return (
+		<AnunciosCard urlApi="https://quartacapa.herokuapp.com/api/v1/usuarios/0593d811-10fc-4a4e-97a4-67a6647000e2" />
+	);
 }
