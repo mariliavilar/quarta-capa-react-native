@@ -13,7 +13,7 @@ const CarrosselCardItem = ({ item, index }) => {
             />
             <Text style={styles.header}>{item.titulo}</Text>
             <Text style={styles.body}>{item.anoEscolar}</Text>
-            <Text style={styles.value}>R${item.valor}</Text>
+            <Text style={styles.value}>R$ {item.valor}</Text>
         </View>
     )
 }
