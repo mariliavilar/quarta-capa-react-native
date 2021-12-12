@@ -1,20 +1,24 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import PressableChildren from './PressableChildren';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width
 export const ITEM_WIDTH = SLIDER_WIDTH * 0.40
 
 const CarrosselCardItem = ({ item, index }) => {
+
     return (
-        <View style={styles.container} key={index}>
-            <Image
-                source={{ uri: item.fotoLivro }}
-                style={styles.image}
-            />
-            <Text style={styles.header}>{item.titulo}</Text>
-            <Text style={styles.body}>{item.anoEscolar}</Text>
-            <Text style={styles.value}>R${item.valor}</Text>
-        </View>
+        <PressableChildren>
+            <View style={styles.container} key={index}>
+                <Image
+                    source={{ uri: item.fotoLivro }}
+                    style={styles.image}
+                />
+                <Text style={styles.header}>{item.titulo}</Text>
+                <Text style={styles.body}>{item.anoEscolar}</Text>
+                <Text style={styles.value}>R${item.valor}</Text>
+            </View>
+        </PressableChildren>
     )
 }
 const styles = StyleSheet.create({

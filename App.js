@@ -42,8 +42,15 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator 
           initialRouteName="Inicio"
+
           screenOptions={{
             headerTitle: (props) => <CustomHeaderWithLogo {...props} />,
+            tabBarActiveBackgroundColor: 
+            defaultStyles.colors.mariliaGreen,
+            tabBarInactiveBackgroundColor:
+            defaultStyles.colors.mariliaGreen,
+            tabBarActiveTintColor: defaultStyles.colors.marilia2Pink,
+            tabBarInactiveTintColor: defaultStyles.colors.medium,
             headerTitleAlign: 'center',
             headerStyle: {
               backgroundColor: defaultStyles.colors.mariliaGreen,
@@ -59,7 +66,11 @@ export default function App() {
             title: 'Meus Anúncios', tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="bullhorn" color={color} size={size} />),
           }} />
-          <Tab.Screen name="CadastroDoAnuncio" component={TelaCadastroDoAnuncio} options={{ title: 'Cadastrar' }} />
+          <Tab.Screen name="CadastroDoAnuncio" component={TelaCadastroDoAnuncio} options={{ title: 'Cadastrar', tabBarIcon: ({ color, size }) => ( 
+            <MaterialCommunityIcons name="notebook" color={color} size={size} />),
+        }} />
+          
+
           <Tab.Screen name="Perfil" component={TelaPerfil} options={{
             title: 'Perfil', tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="account" color={color} size={size} />),
