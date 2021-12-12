@@ -43,6 +43,6 @@ export const disponivelParaDoacao = [
 	{ id: true, nome: "Sim, vou ajudar um estudante!" },
 ];
 
-export const instituicao = [{ id: "Todas", nome: "Todas" }];
+export const destque = [{ id: true, nome: "Sim, destque meu anúncio" }];
 
 export const disciplinas = [{ nome: "Pendente implementar fetch", id: 0 }];

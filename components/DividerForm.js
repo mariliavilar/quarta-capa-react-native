@@ -12,7 +12,7 @@ function DividerForm({ icon, title }) {
 			<MaterialCommunityIcons
 				name={icon}
 				size={70}
-				color={defaultStyles.colors.primary}
+				color={defaultStyles.colors.mariliaGreenDark}
 				style={styles.boxTitle}
 			/>
 			<Title style={styles.boxTitle}>{title}</Title>
