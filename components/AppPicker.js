@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: defaultStyles.colors.light,
 		borderRadius: 25,
-		borderColor: defaultStyles.colors.primary,
+		borderColor: defaultStyles.colors.mariliaGreenDark,
 		borderWidth: 3,
 		flexDirection: "row",
 		width: "100%",
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 	},
 	placeholder: {
-		color: defaultStyles.colors.medium,
+		color: defaultStyles.colors.mariliaGreenDark,
 		flex: 1,
 	},
 	text: {

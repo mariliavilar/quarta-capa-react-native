@@ -26,7 +26,7 @@ function AppFormField({ label, name, ...otherProps }) {
 
 const styles = StyleSheet.create({
 	label: {
-		color: defaultStyles.colors.secundary,
+		color: defaultStyles.colors.mariliaGreenDark,
 		fontSize: 20,
 	},
 });

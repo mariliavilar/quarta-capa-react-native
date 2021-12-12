@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		padding: 15,
 		marginVertical: 10,
-		borderColor: defaultStyles.colors.primary,
+		borderColor: defaultStyles.colors.mariliaGreenDark,
 		borderWidth: 3,
 	},
 	icon: {
