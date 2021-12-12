@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native"
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const dataMock = [
+const dataMock= [
   {
     "anuncioStatus": "DISPONIVEL",
     "criadoEm": "2021-10-05",
@@ -44,7 +44,7 @@ const AnunciosCard = ({ urlApi }) => {
 
   useEffect(() => {
     console.log("useEffect");
-    // getAnuncios();
+    getAnuncios();
   }, [null]);
 
   const getAnuncios = async () => {
@@ -57,9 +57,9 @@ const AnunciosCard = ({ urlApi }) => {
     }
   }
 
-  const Item = ({ titulo, anoEscolar, valor }) => (
-    <View>
-      <Text>{titulo}</Text>
+  const Item = ({ titulo, anoEscolar, valor,fotoLivro }) => (
+    <View style={styles.container}>
+      <Text style={styles.letras}>{titulo}</Text>
       <Text>{anoEscolar}</Text>
       <Text>{valor}</Text>
     </View>
@@ -70,11 +70,22 @@ const AnunciosCard = ({ urlApi }) => {
       <FlatList
         data={dataMock}
         renderItem={({ item }) => <Item titulo={item.titulo}
-          anoEscolar={item.livro.anoEscolar} valor={item.livro.valor} />}
+          anoEscolar={`ANO ESCOLAR: ${item.livro.anoEscolar}`} valor={`PREÇO DO LIVRO: ${item.livro.valor}`}
+           />}
         keyExtractor={item => item.id}
       />
     </View>
   )
 }
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 30,
+  },
+  letras:{
+    fontWeight: 'bold',
+    fontSize: 30,
+  }
+});
+
 
 export default AnunciosCard
